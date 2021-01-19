@@ -4,7 +4,6 @@ import java.awt.Container;
 
 import javax.swing.*;
 
-import bombGame.ButtonTimer;
 
 public class BottomDesign {
 	public BottomDesign(JFrame container) {

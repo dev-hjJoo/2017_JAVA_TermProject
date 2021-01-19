@@ -77,7 +77,7 @@ public class MyKeyListener extends KeyAdapter {
 				focus.repaint();
 				break;
 			
-			// 스페이스 키로 고양이 잡기
+			// ENTER 키로 고양이 잡기
 			case KeyEvent.VK_SPACE:
 				// 고양이 잡았을 때 조건문
 				if(catchcat() == true) {  
