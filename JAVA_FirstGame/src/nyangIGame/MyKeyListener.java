@@ -22,8 +22,9 @@ public class MyKeyListener extends KeyAdapter {
 	public static int score = 0;  // 점수 계산
 	int a = 0;  // 동물 잡은 후 점수 이미지 표시할 때 쓰임
 	
-	public MyKeyListener() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		/*sound I/O*/
+	/*
+	try {
+		//sound I/O
 		File cat_sound_file = new File("sound/cat.wav"); //sound file addr
 		File dog_sound_file = new File("sound/dog.wav"); //sound file addr
 		File fish_sound_file = new File("sound/fish.wav"); //sound file addr
@@ -32,13 +33,17 @@ public class MyKeyListener extends KeyAdapter {
 		AudioInputStream dog_sound = AudioSystem.getAudioInputStream(dog_sound_file); //sound file audio input stream add
 		AudioInputStream fish_sound = AudioSystem.getAudioInputStream(fish_sound_file); //sound file audio input stream add
 		
-		Clip cat_sound_clip = AudioSystem.getClip(); //get clip
-		Clip dog_sound_clip = AudioSystem.getClip(); //get clip
-		Clip fish_sound_clip = AudioSystem.getClip(); //get clip
+		final Clip cat_sound_clip = AudioSystem.getClip(); //get clip
+		final Clip dog_sound_clip = AudioSystem.getClip(); //get clip
+		final Clip fish_sound_clip = AudioSystem.getClip(); //get clip
 	}
-	
-	
-	
+	catch(IOException e) {
+		e.printStackTrace();
+	}
+	*/
+		
+		
+		
 	public MyKeyListener(Container c, JLabel focus, JLabel scorelabel, JLabel plusone, JLabel minus3, JLabel plus5)
 	{
 		this.c = c;
@@ -100,7 +105,7 @@ public class MyKeyListener extends KeyAdapter {
 			// space key로 고양이 잡기
 			case KeyEvent.VK_SPACE:
 				// 고양이 잡았을 때 조건문
-				if(catchcat() == true) {  
+				if(catchcat() == true) {
 					score++;
 					getScore();
 					a++;
