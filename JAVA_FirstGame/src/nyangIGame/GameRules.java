@@ -6,7 +6,6 @@ import javax.swing.*;
 
 
 public class GameRules extends JFrame {
-
 	//private MyPanel panel = new MyPanel();
 
 	public GameRules() {
@@ -27,15 +26,17 @@ public class GameRules extends JFrame {
 //	};
 	
 	c.setBackground(Color.cyan);
-	//고양이 이미지 표시
+	//cat image layout
 	ImageIcon cat1 = new ImageIcon("images/cat.png");
 	JLabel cat3 = new JLabel("고양이를 잡을 시 +1점 !!!",cat1, SwingConstants.CENTER);
 	cat3.setFont(new Font("Gothic", Font.ITALIC, 20));
-	//강아지 표시
+	
+	//dog image layout
 	ImageIcon dog1 = new ImageIcon("images/dog.png");
 	JLabel dog3 = new JLabel("강아지를 잡을 시 -3점 !!!",dog1, SwingConstants.CENTER);
 	dog3.setFont(new Font("Gothic", Font.ITALIC, 20));
-	//물고기 표시
+	
+	//fish image layout
 	ImageIcon fish1 = new ImageIcon("images/fish.png");
 	JLabel fish3 = new JLabel("물고기를 잡을 시 +5점 !!!",fish1, SwingConstants.CENTER);
 	fish3.setFont(new Font("Gothic", Font.ITALIC, 20));
@@ -49,7 +50,7 @@ public class GameRules extends JFrame {
 
 	}
 	public static void main(String[] args) {
-		new GameRules();// TODO Auto-generated method stub
+		new GameRules();
 
 	}
 

@@ -38,21 +38,21 @@ public class MainFrame extends JFrame {
 		// call StarRain class
 		new StarRain(container);
 		
-		/*냥더지 잡기 버튼*/
+		/*The cat catch button*/
 		JButton nyang = new JButton("게임시작");
-		// 버튼 생성
+		//button create
 		nyang.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// nyangIGame package에 NyangiGame클래스의 main문 실행
+				// nyangIGame package The cat Game class main start
 				main_sound_clip.close();
 				nyangIGame.NyangiGame.main(null);
 			}
 			
 		});
-		// 버튼 위치 및 크기 설정		
+		//button position and size setting		
 		nyang.setBounds(50, 100, 330, 80);
-		// 버튼 색깔 지정
+		//button color setting
 		nyang.setBackground(Color.ORANGE);
 		
 		

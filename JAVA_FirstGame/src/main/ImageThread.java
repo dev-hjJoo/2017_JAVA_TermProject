@@ -25,9 +25,7 @@ public class ImageThread extends Thread {
 		while(true) {
 			
 			
-			/*
-			 * 6초 올라가고, 3초 대기, 6초 내려가기
-			 */
+			/*6sec up, 3sec wait, 6sec down*/
 			if (wait < 6) {
 				y -= 10;
 				randomImage.setBounds(x, y, 100, 100);
@@ -46,37 +44,35 @@ public class ImageThread extends Thread {
 				sleep(100);
 				wait++;
 				
-				// 1.5초 마다 초기화
+				//1.5sec Initialize
 				if(wait == 15) {
 		
-					// 이미지 제거
+					//image delete
 					randomImage.setIcon(null);
-					// wait변수 초기화
+					//wait variable Initialize
 					wait = 1;
 					
-					// 이미지 변경
+					//image change
 					
-					// 이미지를 랜덤으로 선택하기 위한 랜덤 값 받기
+					//Receive random values for randomly selecting images
 					int rand = (int)(Math.random()*4);
 					if (rand >= 4) rand=3; 
 					
 					System.out.println("main.ImageThread.run :: rand : "+rand);
 					
-					// 랜덤으로 받은 값을 배열에 넣어 이미지 선택
+					//Choose an image by placing randomly received values in an array
 					String addrImg = "images/bottom/"+imageArr[rand];
 					ImageIcon image = new ImageIcon(addrImg);
 					
 					if (image.getClass() != null) {
 						System.out.println("main.ImageThread.run :: addrImg : "+ addrImg);
 					}
-					
 					randomImage.setIcon(image);
 				}
-				
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				return;
 			}
 		}
 	}
-
 }
