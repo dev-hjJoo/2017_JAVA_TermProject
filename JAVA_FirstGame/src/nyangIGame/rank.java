@@ -79,7 +79,7 @@ public class rank extends JFrame{
 			}
 		}
 		
-		
+		/*상위 3개의 점수만 출력*/
 		score1.setText(Integer.toString(score_arr[0]));
 		score2.setText(Integer.toString(score_arr[1]));
 		score3.setText(Integer.toString(score_arr[2]));
@@ -107,7 +107,7 @@ public class rank extends JFrame{
 		rank_fr.setVisible(true);
 		
 	}
-	
+	/*Resource 파일에서 점수만 읽어오기*/
 	public static String get_score(){
 		String best_score = "";
 		File file_addr = new File("resource/score.txt");
