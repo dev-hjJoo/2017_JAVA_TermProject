@@ -224,7 +224,7 @@ public class MyKeyListener implements KeyListener{
 		}
 	}
 
-	/* 점수 이미지 추가했다가 사라지는 스레드 */
+	/* score image add and  */
 	class ScoreThread extends Thread {
 		int d = 0;
 		public void run() {
@@ -240,7 +240,7 @@ public class MyKeyListener implements KeyListener{
 					c.add(minus3);
 					a = 0;
 					d += 2;
-				} 
+				}
 				else if(a == 3) {  // 물고기 잡았을 때 +5
 					plus5.setLocation(fishTh.x+10, fishTh.y);
 					c.add(plus5);

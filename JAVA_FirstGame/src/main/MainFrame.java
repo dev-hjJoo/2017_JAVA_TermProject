@@ -104,12 +104,12 @@ public class MainFrame extends JFrame {
 		/*game ranking*/
 		ImageIcon fish = new ImageIcon("images/fish.png");
 		JButton rank = new JButton("·©Å·",fish);
-//		rank.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseReleased(MouseEvent e) {
-//				nyangIGame.???.main(null);
-//			}
-//		});
+		rank.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				nyangIGame.rank.main(null);
+			}
+		});
 		
 		//button 
 		rank.setFont(new Font("±Ã¼­", Font.BOLD, 20));
