@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
 			}
 			
 		});
-		//button position and size setting		
+		//button position and size settingggggggggggggggggggggggggggggg		
 		nyang.setFont(new Font("πŸ≈¡", Font.BOLD, 20));
 		nyang.setLocation(120,370);
 		nyang.setSize(270,60);
