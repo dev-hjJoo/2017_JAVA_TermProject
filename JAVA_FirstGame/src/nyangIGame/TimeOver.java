@@ -3,6 +3,7 @@ package nyangIGame;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class TimeOver extends JFrame {
 	public TimeOver() {
@@ -26,12 +27,42 @@ public class TimeOver extends JFrame {
 		btn.setSize(100,100);
 		c.add(btn);
 		
+		// save button
+		JButton save_btn = new JButton();
+		save_btn.setText("SAVE");
+		save_btn.setSize(100, 100);
+		c.add(save_btn);
+		
+		
 		// 버튼 클릭시 모든 창 종료
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}	
+		});
+		
+		save_btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				File file = new File("resource/score.txt");
+				FileWriter fw = null;
+				
+				try {
+					fw = new FileWriter(file, true);
+					BufferedWriter bw = new BufferedWriter(fw);
+					bw.write(Integer.toString(MyKeyListener.score));
+					bw.write("\n");
+					System.out.println("파일저장완료");
+					bw.close();
+					fw.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		});
 		
 		setVisible(true);
