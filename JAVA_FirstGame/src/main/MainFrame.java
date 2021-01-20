@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 		Clip main_sound_clip = AudioSystem.getClip(); //get clip
 		main_sound_clip.open(main_sound); // main sound clip add
 		
-		main_sound_clip.start(); // game start sound play
+		//main_sound_clip.start(); // game start sound play
 		
 	
 		setTitle("게임방법");
@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
 			}
 			
 		});
-		//button position and size setting		
+		//button position and size settingggggggggggggggggggggggggggggg		
 		nyang.setFont(new Font("바탕", Font.BOLD, 20));
 		nyang.setLocation(120,370);
 		nyang.setSize(270,60);
