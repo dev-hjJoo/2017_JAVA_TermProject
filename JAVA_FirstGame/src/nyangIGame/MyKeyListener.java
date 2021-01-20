@@ -8,7 +8,9 @@ import javax.swing.*;
 import java.io.*;//sound file i/o
 import javax.sound.sampled.*; // clip
 
-public class MyKeyListener extends KeyAdapter {
+public class MyKeyListener implements KeyListener{
+	Clip clip;
+	
 	private Container c;
 	private JLabel focus;
 	private CatThread catTh;
@@ -19,39 +21,83 @@ public class MyKeyListener extends KeyAdapter {
 	private JLabel minus3;
 	private JLabel plus5;
 	
+	
 	public static int score = 0;  // 점수 계산
 	int a = 0;  // 동물 잡은 후 점수 이미지 표시할 때 쓰임
-	
-	/*
-	try {
-		//sound I/O
-		File cat_sound_file = new File("sound/cat.wav"); //sound file addr
-		File dog_sound_file = new File("sound/dog.wav"); //sound file addr
-		File fish_sound_file = new File("sound/fish.wav"); //sound file addr
-		
-		AudioInputStream cat_sound = AudioSystem.getAudioInputStream(cat_sound_file); //sound file audio input stream add
-		AudioInputStream dog_sound = AudioSystem.getAudioInputStream(dog_sound_file); //sound file audio input stream add
-		AudioInputStream fish_sound = AudioSystem.getAudioInputStream(fish_sound_file); //sound file audio input stream add
-		
-		final Clip cat_sound_clip = AudioSystem.getClip(); //get clip
-		final Clip dog_sound_clip = AudioSystem.getClip(); //get clip
-		final Clip fish_sound_clip = AudioSystem.getClip(); //get clip
-	}
-	catch(IOException e) {
-		e.printStackTrace();
-	}
-	*/
-		
-		
-		
-	public MyKeyListener(Container c, JLabel focus, JLabel scorelabel, JLabel plusone, JLabel minus3, JLabel plus5)
-	{
+
+	public MyKeyListener(Container c, JLabel focus, JLabel scorelabel, JLabel plusone, JLabel minus3, JLabel plus5){
 		this.c = c;
 		this.focus = focus;
 		this.scorelabel = scorelabel;
 		this.plusone = plusone;
 		this.minus3 = minus3;
 		this.plus5 = plus5;
+	}
+	
+	public void cat_play_sound(String cat_pathName, boolean set) {
+		if(set == true) {
+			try {
+				clip = AudioSystem.getClip();
+				File audio_file = new File(cat_pathName);
+				
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio_file);
+				clip.open(audioStream);
+				clip.start();
+			}catch(LineUnavailableException e) {
+				e.printStackTrace();
+			}catch(UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			clip.close();
+		}
+	}
+	
+	public void dog_play_sound(String dog_pathName, boolean set) {
+		if(set == true) {
+			try {
+				clip = AudioSystem.getClip();
+				File audio_file = new File(dog_pathName);
+				
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio_file);
+				clip.open(audioStream);
+				clip.start();
+			}catch(LineUnavailableException e) {
+				e.printStackTrace();
+			}catch(UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			clip.close();
+		}
+	}
+	
+	public void fish_play_sound(String fish_pathName, boolean set) {
+		if(set == true){
+			try {
+				clip = AudioSystem.getClip();
+				File audio_file = new File(fish_pathName);
+				
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio_file);
+				clip.open(audioStream);
+				clip.start();
+			}catch(LineUnavailableException e) {
+				e.printStackTrace();
+			}catch(UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			clip.close();
+		}
 	}
 	
 	public void setThread(CatThread catTh, DogThread dogTh, FishThread fishTh) {
@@ -61,7 +107,7 @@ public class MyKeyListener extends KeyAdapter {
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {		
 		int keyCode = e.getKeyCode();  // 입력된 키의 키코드 알아내는 변수
 		
 		ScoreThread scoreTh = new ScoreThread();  // 점수 이미지 나타나게 하는 스레드 생성
@@ -106,6 +152,7 @@ public class MyKeyListener extends KeyAdapter {
 			case KeyEvent.VK_SPACE:
 				// 고양이 잡았을 때 조건문
 				if(catchcat() == true) {
+					cat_play_sound("sound/cat.wav",true);
 					score++;
 					getScore();
 					a++;
@@ -115,6 +162,7 @@ public class MyKeyListener extends KeyAdapter {
 				
 				// 강아지 잡았을 때
 				if(catchdog() == true) {
+					dog_play_sound("sound/dog.wav",true);
 					score -= 3;
 					getScore();
 					a += 2;
@@ -124,6 +172,7 @@ public class MyKeyListener extends KeyAdapter {
 				
 				// 물고기 잡았을 때
 				if(catchfish() == true) {
+					fish_play_sound("sound/fish.wav",true);
 					score += 5;
 					getScore();
 					a += 3;
@@ -163,7 +212,7 @@ public class MyKeyListener extends KeyAdapter {
 	int b = 0;  // dogTh랑 fishTh 중복 시작 방지
 	
 	/* 점수 계산하는 메소드 */
-	void getScore() {
+	void getScore() {		
 		scorelabel.setText(" SCORE : " + Integer.toString(score));  // 레이블에 점수 값 출력
 		if(score == 10 && b == 0) {  // 10점 되면 강아지 등장
 			dogTh.start();
@@ -223,5 +272,17 @@ public class MyKeyListener extends KeyAdapter {
 				catch(InterruptedException e) { return; }  // 예외 발생 시 스레드 종료	
 			}
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

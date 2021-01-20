@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 		nyang.setBackground(Color.ORANGE);
 		
 		
-		/*게임방법*/
+		/*game rules*/
 		JButton rules = new JButton("게임 방법");
 		rules.addMouseListener(new MouseAdapter() {
 			@Override
@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		// 버튼 위치 및 크기 설정		
+		//button 
 		rules.setBounds(50, 200,330, 80);
 		// 버튼 색깔 지정
 		rules.setBackground(Color.ORANGE);
