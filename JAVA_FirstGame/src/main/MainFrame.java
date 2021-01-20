@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
 		
 	
 		setTitle("게임방법");
-		icon = new ImageIcon("images/두더냥잡기.png");
+		icon = new ImageIcon("images/doodunyang.png");
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(icon.getImage(), 0,0,null);
