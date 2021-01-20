@@ -34,21 +34,9 @@ public class MainFrame extends JFrame {
 		
 		main_sound_clip.start(); // game start sound play
 		
-		
-		/*Frame setting*/
-//		setTitle("µŒ¥ı≥… ¿‚±‚");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
-//		Container container = getContentPane();
-//		container.setLayout(null);
-//		
-//		container.setBackground(Color.BLACK);
-//		
-//		// call StarRain class
-//		new StarRain(container);
-		
+	
 		setTitle("∞‘¿”πÊπ˝");
-		icon = new ImageIcon("");
+		icon = new ImageIcon("images/µŒ¥ı≥…¿‚±‚.png");
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(icon.getImage(), 0,0,null);
@@ -77,11 +65,11 @@ public class MainFrame extends JFrame {
 			
 		});
 		//button position and size setting		
-		nyang.setFont(new Font("±√º≠", Font.BOLD, 20));
-		nyang.setLocation(90,230);
+		nyang.setFont(new Font("πŸ≈¡", Font.BOLD, 20));
+		nyang.setLocation(120,370);
 		nyang.setSize(270,60);
 		//button color setting
-		nyang.setBackground(Color.ORANGE);
+		nyang.setBackground(Color.CYAN);
 		
 		
 		/*game rules*/
@@ -95,28 +83,28 @@ public class MainFrame extends JFrame {
 		});
 		
 		//button 
-		rules.setFont(new Font("±√º≠", Font.BOLD, 20));
-		rules.setLocation(90,300);
+		rules.setFont(new Font("πŸ≈¡", Font.BOLD, 20));
+		rules.setLocation(120,450);
 		rules.setSize(270,60);
 		// πˆ∆∞ ªˆ±Ú ¡ˆ¡§
-		rules.setBackground(Color.ORANGE);
+		rules.setBackground(Color.CYAN);
 		
 		/*game ranking*/
 		ImageIcon fish = new ImageIcon("images/fish.png");
 		JButton rank = new JButton("∑©≈∑",fish);
-//		rank.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseReleased(MouseEvent e) {
-//				nyangIGame.???.main(null);
-//			}
-//		});
+		rank.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				nyangIGame.rank.main(null);
+			}
+		});
 		
 		//button 
-		rank.setFont(new Font("±√º≠", Font.BOLD, 20));
-		rank.setLocation(90,370);
+		rank.setFont(new Font("πŸ≈¡", Font.BOLD, 20));
+		rank.setLocation(120,530);
 		rank.setSize(270,60);
 		// πˆ∆∞ ªˆ±Ú ¡ˆ¡§
-		rank.setBackground(Color.ORANGE);
+		rank.setBackground(Color.CYAN);
 		
 		background.add(nyang);
 		background.add(rules);
