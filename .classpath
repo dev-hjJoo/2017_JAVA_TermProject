@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Game/src"/>
+	<classpathentry kind="src" path="JAVA_FirstGame/src"/>
+	<classpathentry kind="src" path="javaTermProject/avoidBomb/src"/>
+	<classpathentry kind="output" path="JAVA_FirstGame/bin"/>
+</classpath>

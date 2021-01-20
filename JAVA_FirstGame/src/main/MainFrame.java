@@ -3,11 +3,18 @@ package main;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.io.*;//sound file i/o
 import javax.sound.sampled.*; // clip
 
@@ -16,6 +23,8 @@ import nyangIGame.NyangiGame;
 
 
 public class MainFrame extends JFrame {
+	JScrollPane scrollPane;
+	ImageIcon icon;
 	public MainFrame() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		/*sound I/O*/
 		File soundfile = new File("sound/mainBGM.wav"); //sound file addr
@@ -27,19 +36,36 @@ public class MainFrame extends JFrame {
 		
 		
 		/*Frame setting*/
-		setTitle("두더냥 잡기");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setTitle("두더냥 잡기");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		
+//		Container container = getContentPane();
+//		container.setLayout(null);
+//		
+//		container.setBackground(Color.BLACK);
+//		
+//		// call StarRain class
+//		new StarRain(container);
 		
-		Container container = getContentPane();
-		container.setLayout(null);
+		setTitle("게임방법");
+		icon = new ImageIcon("");
+		JPanel background = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon.getImage(), 0,0,null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		background.setLayout(null);
+
+		scrollPane = new JScrollPane(background);
+		setContentPane(scrollPane);
 		
-		container.setBackground(Color.BLACK);
 		
-		// call StarRain class
-		new StarRain(container);
 		
 		/*The cat catch button*/
-		JButton nyang = new JButton("게임시작");
+		ImageIcon dog = new ImageIcon("images/dog.png");
+		JButton nyang = new JButton("게임시작",dog);
 		//button create
 		nyang.addMouseListener(new MouseAdapter() {
 			@Override
@@ -51,13 +77,16 @@ public class MainFrame extends JFrame {
 			
 		});
 		//button position and size setting		
-		nyang.setBounds(50, 100, 330, 80);
+		nyang.setFont(new Font("궁서", Font.BOLD, 20));
+		nyang.setLocation(90,230);
+		nyang.setSize(270,60);
 		//button color setting
 		nyang.setBackground(Color.ORANGE);
 		
 		
 		/*game rules*/
-		JButton rules = new JButton("게임 방법");
+		ImageIcon cat = new ImageIcon("images/cat.png");
+		JButton rules = new JButton("게임 방법",cat);
 		rules.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -66,20 +95,33 @@ public class MainFrame extends JFrame {
 		});
 		
 		//button 
-		rules.setBounds(50, 200,330, 80);
+		rules.setFont(new Font("궁서", Font.BOLD, 20));
+		rules.setLocation(90,300);
+		rules.setSize(270,60);
 		// 버튼 색깔 지정
 		rules.setBackground(Color.ORANGE);
 		
+		/*game ranking*/
+		ImageIcon fish = new ImageIcon("images/fish.png");
+		JButton rank = new JButton("랭킹",fish);
+//		rank.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseReleased(MouseEvent e) {
+//				nyangIGame.???.main(null);
+//			}
+//		});
 		
+		//button 
+		rank.setFont(new Font("궁서", Font.BOLD, 20));
+		rank.setLocation(90,370);
+		rank.setSize(270,60);
+		// 버튼 색깔 지정
+		rank.setBackground(Color.ORANGE);
 		
-		/*하단 디자인*/
-		new BottomDesign(this);
+		background.add(nyang);
+		background.add(rules);
+		background.add(rank);
 		
-		container.add(nyang);
-		container.add(rules);
-		
-		setSize(450,500);
-		setVisible(true);
 	}
 
 }
