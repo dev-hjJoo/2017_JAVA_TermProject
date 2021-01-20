@@ -22,7 +22,7 @@ public class MyKeyListener implements KeyListener{
 	private JLabel plus5;
 	
 	
-	public static int score = 0;  // 점수 계산
+	public static int score = 0;  // score calculate
 	int a = 0;  // 동물 잡은 후 점수 이미지 표시할 때 쓰임
 
 	public MyKeyListener(Container c, JLabel focus, JLabel scorelabel, JLabel plusone, JLabel minus3, JLabel plus5){
@@ -108,15 +108,15 @@ public class MyKeyListener implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {		
-		int keyCode = e.getKeyCode();  // 입력된 키의 키코드 알아내는 변수
+		int keyCode = e.getKeyCode();  // input key code variable
 		
-		ScoreThread scoreTh = new ScoreThread();  // 점수 이미지 나타나게 하는 스레드 생성
+		ScoreThread scoreTh = new ScoreThread();  // score image print thread create
 		scoreTh.start();
 		
-		// 키 코드 값에 따라 상,하,좌,우 키 판별 & 커서 위치 이동
+		// key code (up, down, left, right) & cursor position
 		switch(keyCode) { 
 			case KeyEvent.VK_UP:
-				if(focus.getY() <= 70) {  // 포커스가 1행의 구멍 위로 가지 않도록 하는 조건문
+				if(focus.getY() <= 70) {  // focus 1row not up condition
 					focus.setLocation(focus.getX(), 70);
 					break;
 				} 
@@ -124,7 +124,7 @@ public class MyKeyListener implements KeyListener{
 				focus.repaint(); 
 				break;
 			case KeyEvent.VK_DOWN:
-				if(focus.getY() >= 270) {  // 포커스가 3행의 구멍 밑으로 가지 않도록 하는 조건문
+				if(focus.getY() >= 270) {  // focus 3row not down condition
 					focus.setLocation(focus.getX(), 270);
 					break;
 				}
@@ -132,7 +132,7 @@ public class MyKeyListener implements KeyListener{
 				focus.repaint();
 				break;
 			case KeyEvent.VK_LEFT:
-				if(focus.getX() <= 50) {  // 포커스가 1열의 구멍 왼쪽으로 가지 않도록 하는 조건문
+				if(focus.getX() <= 50) {  // focus 3column not left condition
 					focus.setLocation(50, focus.getY());
 					break;
 				}
@@ -140,7 +140,7 @@ public class MyKeyListener implements KeyListener{
 				focus.repaint();
 				break;
 			case KeyEvent.VK_RIGHT:
-				if(focus.getX() >= 370) {  // 포커스가 3열의 구멍 오른쪽으로 가지 않도록 하는 조건문
+				if(focus.getX() >= 370) {  // focus 3column not right condition
 					focus.setLocation(370, focus.getY());
 					break;
 				}
@@ -148,9 +148,9 @@ public class MyKeyListener implements KeyListener{
 				focus.repaint();
 				break;
 			
-			// space key로 고양이 잡기
+			// space key catch condition
 			case KeyEvent.VK_SPACE:
-				// 고양이 잡았을 때 조건문
+				// cat catch condition
 				if(catchcat() == true) {
 					cat_play_sound("sound/cat.wav",true);
 					score++;
@@ -160,7 +160,7 @@ public class MyKeyListener implements KeyListener{
 				} else 
 					c.remove(plusone);
 				
-				// 강아지 잡았을 때
+				// dog catch condition
 				if(catchdog() == true) {
 					dog_play_sound("sound/dog.wav",true);
 					score -= 3;
@@ -170,7 +170,7 @@ public class MyKeyListener implements KeyListener{
 				} else 
 					c.remove(minus3);
 				
-				// 물고기 잡았을 때
+				// fish catch condition
 				if(catchfish() == true) {
 					fish_play_sound("sound/fish.wav",true);
 					score += 5;
@@ -182,7 +182,7 @@ public class MyKeyListener implements KeyListener{
 		}
 	}
 	
-	/* 고양이 좌표와 포커스 좌표 비교하는 메소드 */
+	/* cat position focus & catch position focus condition */
 	public boolean catchcat() {
 		if(catTh.x == focus.getX()+5 && catTh.y == focus.getY()+10) {
 			return true;
@@ -191,7 +191,7 @@ public class MyKeyListener implements KeyListener{
 			return false;
 	}
 	
-	/* 강아지 좌표와 포커스 좌표 비교하는 메소드 */
+	/* dog position focus & catch position focus condition */
 	public boolean catchdog() {
 		if(dogTh.x == focus.getX()+5 && dogTh.y == focus.getY()+10) {
 			return true;
@@ -200,7 +200,7 @@ public class MyKeyListener implements KeyListener{
 			return false;
 	}
 	
-	/* 물고기 좌표와 포커스 좌표 비교하는 메소드 */
+	/* fish position focus & catch position focus condition */
 	public boolean catchfish() {
 		if(fishTh.x == focus.getX()+5 && fishTh.y == focus.getY()+10) {
 			return true;
@@ -209,16 +209,16 @@ public class MyKeyListener implements KeyListener{
 			return false;
 	}
 	
-	int b = 0;  // dogTh랑 fishTh 중복 시작 방지
+	int b = 0;  // dogTh and fishTh section start variable
 	
-	/* 점수 계산하는 메소드 */
+	/* score calculate method */
 	void getScore() {		
-		scorelabel.setText(" SCORE : " + Integer.toString(score));  // 레이블에 점수 값 출력
-		if(score == 10 && b == 0) {  // 10점 되면 강아지 등장
+		scorelabel.setText(" SCORE : " + Integer.toString(score));  // label score value print
+		if(score == 10 && b == 0) {  // 10score dog appearance
 			dogTh.start();
 			b++;
 		}
-		else if(score == 15 && b == 1) {  // 15점 되면 물고기 등장
+		else if(score == 15 && b == 1) {  // 15score fish appearance
 			fishTh.start();	 
 			b++;
 		}
