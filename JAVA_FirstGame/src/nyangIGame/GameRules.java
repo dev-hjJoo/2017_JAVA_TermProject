@@ -12,7 +12,7 @@ public class GameRules extends JFrame {
 	public GameRules() {
 		setTitle("게임방법");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		icon = new ImageIcon("images/배경.png");
+		icon = new ImageIcon("images/back.png");
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(icon.getImage(), 0,0,null);
