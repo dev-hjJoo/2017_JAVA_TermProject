@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -11,7 +12,7 @@ public class Main {
 	public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		MainFrame frame = new MainFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(450,500);
+		frame.setSize(515,700);
 		frame.setVisible(true);
 		
 		
