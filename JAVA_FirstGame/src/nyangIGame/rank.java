@@ -38,7 +38,7 @@ public class rank extends JFrame{
 //		JPanel center_pn = new JPanel();
 //		JPanel left_pn = new JPanel();
 //		
-//		JFrame rank_fr = new JFrame();
+//		JFrame rank_fr = new JFrame();!!!!
 		//JPanel main_pn = new JPanel();
 		JLabel rank_score = new JLabel("최고 점수");
 		rank_score.setLocation(180,90);
