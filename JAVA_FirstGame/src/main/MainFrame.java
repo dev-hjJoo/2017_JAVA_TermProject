@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 		main_sound_clip.start(); // game start sound play
 		
 	
-		setTitle("게임방법");
+		setTitle("두더냥잡기");
 		icon = new ImageIcon("images/doodunyang.png");
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
