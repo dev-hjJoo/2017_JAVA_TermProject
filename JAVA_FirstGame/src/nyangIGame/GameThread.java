@@ -1,12 +1,12 @@
 package nyangIGame;
 
-/* 게임에 필요한 스레드 */
+/* game Thread */
 import java.awt.*;
 import javax.swing.*;
 
-/* 타이머 스레드 */
+/* timer Thread */
 class TimerThread extends Thread {
-	private JLabel timerlabel;  // 타이머 값이 출력되는 레이블
+	private JLabel timerlabel;  //timer value print lable
 	private CatThread catTh;
 	public static int n=30;
 	
@@ -15,29 +15,29 @@ class TimerThread extends Thread {
 		this.catTh = catTh;
 	}
 	
-	// 스레드 코드. run()이 종료하면 스레드 종료
+	// Thread code. run() end Thread end
 	@Override
 	public void run() {
-		catTh.start();  // 고양이 스레드 시작
+		catTh.start();  // cat Thread starting
 		
 		while(true) {
-			timerlabel.setText(" TIME : " + Integer.toString(n));  // 레이블에 카운트 값 출력
+			timerlabel.setText(" TIME : " + Integer.toString(n));  //count value print label
 			
 			n--;
 			
 			try {
 				Thread.sleep(1000);
-				if(n == -1) {  // 0초일 때 스레드 종료
+				if(n == -1) {  // 0sec Thread end
 					new TimeOver();
 					return;  
 				}
 			}
-			catch(InterruptedException e) { return; }  // 예외 발생 시 스레드 종료	
+			catch(InterruptedException e) { return; }  //exception occurrence thread end
 		}	
 	}
 }
 
-/* 고양이 나오게 하는 스레드 */
+/* cat image thread */
 class CatThread extends Thread {
 	private JLabel cat;
 	private Container c;
@@ -45,9 +45,9 @@ class CatThread extends Thread {
 	private DogThread dogTh;
 	private FishThread fishTh;
 	
-	public int ca [] = {55, 215, 375};  // 고양이 x좌표 값들
-	public int cb [] = {80, 180, 280};  // 고양이 y좌표 값들
-	int x=0, y=0;  // 고양이 좌표 중 랜덤으로 선택된 값 넣어줄 변수
+	public int ca [] = {55, 215, 375};  // cat x position value
+	public int cb [] = {80, 180, 280};  // cat y position value
+	int x=0, y=0;  //cat position random variable
 	
 	public CatThread(JLabel cat, Container c, JLabel plusone) {
 		this.c = c;
@@ -59,15 +59,15 @@ class CatThread extends Thread {
 		this.fishTh = fishTh;
 	}
 	
-	// 스레드 코드. run()이 종료하면 스레드 종료
+	//Thread code. run() end Thread end
 	@Override
 	public void run() {
-		// 고양이 아이콘 생성
+		// cat icon create
 		ImageIcon cimg = new ImageIcon("images/cat.png");
 		cat = new JLabel(cimg);
 			
 		while(true) {
-			cat.setSize(cimg.getIconWidth(),cimg.getIconWidth());   // 레이블 크기 = 이미지 크기
+			cat.setSize(cimg.getIconWidth(),cimg.getIconWidth());   //label size == icon size
 			
 			int i = (int)(Math.random()*3);  // 0 ~ 2
 			int j = (int)(Math.random()*3);  // 0 ~ 2
@@ -76,13 +76,13 @@ class CatThread extends Thread {
 
 			cat.setLocation(x,y);
 			
-			// 고양이 좌표가 강아지 & 물고기 좌표랑 겹치지 않게 하기 위한 조건문
+			// cat position cat & fish position conditional statements to avoid overlap
 			if ((x == dogTh.x && y == dogTh.y) || (fishTh.x == x && fishTh.y == y)) {
 				c.remove(cat);
 			} else { c.add(cat); }
 				
 			try {
-				Thread.sleep(800);  // 0.8초 주기로 고양이 랜덤하게 나타남
+				Thread.sleep(800);  // 0.8sec random cat appears in cycles
 				if ((x == dogTh.x && y == dogTh.y) || (fishTh.x == x && fishTh.y == y)) {
 					c.remove(cat);
 				} else { c.repaint(); }
@@ -90,10 +90,10 @@ class CatThread extends Thread {
 				if(TimerThread.n == -1) {
 					c.remove(cat);
 					c.remove(plusone);
-					return;  // 스레드 종료
+					return;  //thread end
 				}
 			}
-			catch(InterruptedException e) { return; }  // 예외 발생 시 스레드 종료
+			catch(InterruptedException e) { return; }  //end the thread when an exception occurs
 			}
 	}
 }

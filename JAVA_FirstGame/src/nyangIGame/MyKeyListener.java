@@ -1,11 +1,16 @@
 package nyangIGame;
 
-/* Key 리스너 */
+/* Key Listener */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MyKeyListener extends KeyAdapter {
+import java.io.*;//sound file i/o
+import javax.sound.sampled.*; // clip
+
+public class MyKeyListener implements KeyListener{
+	Clip clip;
+	
 	private Container c;
 	private JLabel focus;
 	private CatThread catTh;
@@ -16,17 +21,83 @@ public class MyKeyListener extends KeyAdapter {
 	private JLabel minus3;
 	private JLabel plus5;
 	
-	public static int score = 0;  // 점수 계산
-	int a = 0;  // 동물 잡은 후 점수 이미지 표시할 때 쓰임
 	
-	public MyKeyListener(Container c, JLabel focus, JLabel scorelabel, JLabel plusone, JLabel minus3, JLabel plus5)
-	{
+	public static int score = 0;  // score calculate
+	int a = 0;  // 동물 잡은 후 점수 이미지 표시할 때 쓰임
+
+	public MyKeyListener(Container c, JLabel focus, JLabel scorelabel, JLabel plusone, JLabel minus3, JLabel plus5){
 		this.c = c;
 		this.focus = focus;
 		this.scorelabel = scorelabel;
 		this.plusone = plusone;
 		this.minus3 = minus3;
 		this.plus5 = plus5;
+	}
+	
+	public void cat_play_sound(String cat_pathName, boolean set) {
+		if(set == true) {
+			try {
+				clip = AudioSystem.getClip();
+				File audio_file = new File(cat_pathName);
+				
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio_file);
+				clip.open(audioStream);
+				clip.start();
+			}catch(LineUnavailableException e) {
+				e.printStackTrace();
+			}catch(UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			clip.close();
+		}
+	}
+	
+	public void dog_play_sound(String dog_pathName, boolean set) {
+		if(set == true) {
+			try {
+				clip = AudioSystem.getClip();
+				File audio_file = new File(dog_pathName);
+				
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio_file);
+				clip.open(audioStream);
+				clip.start();
+			}catch(LineUnavailableException e) {
+				e.printStackTrace();
+			}catch(UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			clip.close();
+		}
+	}
+	
+	public void fish_play_sound(String fish_pathName, boolean set) {
+		if(set == true){
+			try {
+				clip = AudioSystem.getClip();
+				File audio_file = new File(fish_pathName);
+				
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio_file);
+				clip.open(audioStream);
+				clip.start();
+			}catch(LineUnavailableException e) {
+				e.printStackTrace();
+			}catch(UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			clip.close();
+		}
 	}
 	
 	public void setThread(CatThread catTh, DogThread dogTh, FishThread fishTh) {
@@ -36,16 +107,16 @@ public class MyKeyListener extends KeyAdapter {
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();  // 입력된 키의 키코드 알아내는 변수
+	public void keyPressed(KeyEvent e) {		
+		int keyCode = e.getKeyCode();  // input key code variable
 		
-		ScoreThread scoreTh = new ScoreThread();  // 점수 이미지 나타나게 하는 스레드 생성
+		ScoreThread scoreTh = new ScoreThread();  // score image print thread create
 		scoreTh.start();
 		
-		// 키 코드 값에 따라 상,하,좌,우 키 판별 & 커서 위치 이동
+		// key code (up, down, left, right) & cursor position
 		switch(keyCode) { 
 			case KeyEvent.VK_UP:
-				if(focus.getY() <= 70) {  // 포커스가 1행의 구멍 위로 가지 않도록 하는 조건문
+				if(focus.getY() <= 70) {  // focus 1row not up condition
 					focus.setLocation(focus.getX(), 70);
 					break;
 				} 
@@ -53,7 +124,7 @@ public class MyKeyListener extends KeyAdapter {
 				focus.repaint(); 
 				break;
 			case KeyEvent.VK_DOWN:
-				if(focus.getY() >= 270) {  // 포커스가 3행의 구멍 밑으로 가지 않도록 하는 조건문
+				if(focus.getY() >= 270) {  // focus 3row not down condition
 					focus.setLocation(focus.getX(), 270);
 					break;
 				}
@@ -61,7 +132,7 @@ public class MyKeyListener extends KeyAdapter {
 				focus.repaint();
 				break;
 			case KeyEvent.VK_LEFT:
-				if(focus.getX() <= 50) {  // 포커스가 1열의 구멍 왼쪽으로 가지 않도록 하는 조건문
+				if(focus.getX() <= 50) {  // focus 3column not left condition
 					focus.setLocation(50, focus.getY());
 					break;
 				}
@@ -69,7 +140,7 @@ public class MyKeyListener extends KeyAdapter {
 				focus.repaint();
 				break;
 			case KeyEvent.VK_RIGHT:
-				if(focus.getX() >= 370) {  // 포커스가 3열의 구멍 오른쪽으로 가지 않도록 하는 조건문
+				if(focus.getX() >= 370) {  // focus 3column not right condition
 					focus.setLocation(370, focus.getY());
 					break;
 				}
@@ -77,10 +148,11 @@ public class MyKeyListener extends KeyAdapter {
 				focus.repaint();
 				break;
 			
-			// ENTER 키로 고양이 잡기
+			// space key catch condition
 			case KeyEvent.VK_SPACE:
-				// 고양이 잡았을 때 조건문
-				if(catchcat() == true) {  
+				// cat catch condition
+				if(catchcat() == true) {
+					cat_play_sound("sound/cat.wav",true);
 					score++;
 					getScore();
 					a++;
@@ -88,8 +160,9 @@ public class MyKeyListener extends KeyAdapter {
 				} else 
 					c.remove(plusone);
 				
-				// 강아지 잡았을 때
+				// dog catch condition
 				if(catchdog() == true) {
+					dog_play_sound("sound/dog.wav",true);
 					score -= 3;
 					getScore();
 					a += 2;
@@ -97,8 +170,9 @@ public class MyKeyListener extends KeyAdapter {
 				} else 
 					c.remove(minus3);
 				
-				// 물고기 잡았을 때
+				// fish catch condition
 				if(catchfish() == true) {
+					fish_play_sound("sound/fish.wav",true);
 					score += 5;
 					getScore();
 					a += 3;
@@ -108,7 +182,7 @@ public class MyKeyListener extends KeyAdapter {
 		}
 	}
 	
-	/* 고양이 좌표와 포커스 좌표 비교하는 메소드 */
+	/* cat position focus & catch position focus condition */
 	public boolean catchcat() {
 		if(catTh.x == focus.getX()+5 && catTh.y == focus.getY()+10) {
 			return true;
@@ -117,7 +191,7 @@ public class MyKeyListener extends KeyAdapter {
 			return false;
 	}
 	
-	/* 강아지 좌표와 포커스 좌표 비교하는 메소드 */
+	/* dog position focus & catch position focus condition */
 	public boolean catchdog() {
 		if(dogTh.x == focus.getX()+5 && dogTh.y == focus.getY()+10) {
 			return true;
@@ -126,7 +200,7 @@ public class MyKeyListener extends KeyAdapter {
 			return false;
 	}
 	
-	/* 물고기 좌표와 포커스 좌표 비교하는 메소드 */
+	/* fish position focus & catch position focus condition */
 	public boolean catchfish() {
 		if(fishTh.x == focus.getX()+5 && fishTh.y == focus.getY()+10) {
 			return true;
@@ -135,22 +209,22 @@ public class MyKeyListener extends KeyAdapter {
 			return false;
 	}
 	
-	int b = 0;  // dogTh랑 fishTh 중복 시작 방지
+	int b = 0;  // dogTh and fishTh section start variable
 	
-	/* 점수 계산하는 메소드 */
-	void getScore() {
-		scorelabel.setText(" SCORE : " + Integer.toString(score));  // 레이블에 점수 값 출력
-		if(score == 10 && b == 0) {  // 10점 되면 강아지 등장
+	/* score calculate method */
+	void getScore() {		
+		scorelabel.setText(" SCORE : " + Integer.toString(score));  // label score value print
+		if(score == 10 && b == 0) {  // 10score dog appearance
 			dogTh.start();
 			b++;
 		}
-		else if(score == 15 && b == 1) {  // 15점 되면 물고기 등장
+		else if(score == 15 && b == 1) {  // 15score fish appearance
 			fishTh.start();	 
 			b++;
 		}
 	}
 
-	/* 점수 이미지 추가했다가 사라지는 스레드 */
+	/* score image add and  */
 	class ScoreThread extends Thread {
 		int d = 0;
 		public void run() {
@@ -166,7 +240,7 @@ public class MyKeyListener extends KeyAdapter {
 					c.add(minus3);
 					a = 0;
 					d += 2;
-				} 
+				}
 				else if(a == 3) {  // 물고기 잡았을 때 +5
 					plus5.setLocation(fishTh.x+10, fishTh.y);
 					c.add(plus5);
@@ -198,5 +272,17 @@ public class MyKeyListener extends KeyAdapter {
 				catch(InterruptedException e) { return; }  // 예외 발생 시 스레드 종료	
 			}
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,13 +1,13 @@
 package nyangIGame;
 
-/* 두더냥 잡기 게임 */
+/* The  cat catch game */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class NyangiGame extends JFrame {
-	int ha [] = {50, 210, 370};  // 구멍 x좌표 값들
-	int hb [] = {110, 210, 310};  // 구멍 y좌표 값들
+	int ha [] = {50, 210, 370};  // hole x position value
+	int hb [] = {110, 210, 310};  // hole y position value
 	public static JButton startbtn;
 	
 	public NyangiGame() {
@@ -20,7 +20,7 @@ public class NyangiGame extends JFrame {
 		
 		for(int i=0; i<3; i++) {
 			for(int j=0; j<3; j++) {
-				// 구멍 아이콘 생성
+				// hole icon create
 				ImageIcon himg = new ImageIcon("images/hole.png");
 				JLabel hole = new JLabel(himg);
 				
@@ -30,7 +30,7 @@ public class NyangiGame extends JFrame {
 			}
 		}
 		
-		// 타이머 레이블 생성
+		// Timer label create
 		JLabel timerlabel = new JLabel();  
 		timerlabel.setText(" TIME : 30");
 		timerlabel.setFont(new Font("Gothic", Font.ITALIC, 20));
@@ -38,49 +38,50 @@ public class NyangiGame extends JFrame {
 		timerlabel.setLocation(50,20);
 		
 		
-		JLabel cat = new JLabel();  // 고양이 레이블 생성
+		JLabel cat = new JLabel();  // cat label create
 		
-		// 점수 레이블 생성
+		// score label create
 		JLabel scorelabel = new JLabel();  
-		scorelabel.setText(" SCORE : 0" );  // 레이블에 점수 값 출력
+		scorelabel.setText(" SCORE : 0" );  //label score value print
 		scorelabel.setFont(new Font("Gothic", Font.ITALIC, 20));
 		scorelabel.setSize(150,50);
 		scorelabel.setLocation(320,20);
 		c.add(scorelabel);
 		
-		// +1 이미지
+		// +1 image
 		ImageIcon poimg = new ImageIcon("images/plusone.png");
 		JLabel plusone = new JLabel(poimg);
 		plusone.setSize(poimg.getIconWidth(),poimg.getIconWidth());
-		// -3 이미지
+		
+		// -3 image
 		ImageIcon m3img = new ImageIcon("images/minus3.png");
 		JLabel minus3 = new JLabel(m3img);
 		minus3.setSize(m3img.getIconWidth(),m3img.getIconWidth());
-		// +5 이미지
+		
+		// +5 image
 		ImageIcon p5img = new ImageIcon("images/plus5.png");
 		JLabel plus5 = new JLabel(p5img);
 		plus5.setSize(p5img.getIconWidth(),p5img.getIconWidth());
 		
-		
-		// 스레드 생성
-		CatThread catTh = new CatThread(cat, c, plusone);  // 고양이
-		DogThread dogTh = new DogThread(c, minus3, catTh);  // 강이지
-		FishThread fishTh = new FishThread(c, plus5, catTh, dogTh);  // 물고기
-		TimerThread timerTh = new TimerThread(timerlabel, catTh);  // 타이머
+		// Thread create
+		CatThread catTh = new CatThread(cat, c, plusone);  //cat
+		DogThread dogTh = new DogThread(c, minus3, catTh);  //dog
+		FishThread fishTh = new FishThread(c, plus5, catTh, dogTh);  //fish
+		TimerThread timerTh = new TimerThread(timerlabel, catTh);  //timer
 		
 		catTh.setTh(dogTh, fishTh);
 		dogTh.setFishTh(fishTh);
 
-		// 시작 버튼 생성
+		// start button create
 		startbtn = new JButton("START");
 		startbtn.setSize(450,50);
 		startbtn.setLocation(20,400);
 		startbtn.setBackground(Color.PINK);
 		startbtn.setOpaque(true);
 		startbtn.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {  // 버튼 누르면 실행
+			public void mousePressed(MouseEvent e) {  //button pressed start
 				startbtn.setText("FINISE");
-				if (timerTh.isAlive()) {  // 타이머 스레드가 실행되고 있을 때 버튼 누르면 종료
+				if (timerTh.isAlive()) {  //timer thread starting  button pressed end
 					TimerThread.n = -1;
 					timerlabel.setText(" TIME : 30");
 					startbtn.setText("START");
@@ -92,11 +93,11 @@ public class NyangiGame extends JFrame {
 		c.add(timerlabel);
 		c.add(startbtn);
 		
-		// 포커스 아이콘 생성
+		//focus icon create
 		ImageIcon fimg = new ImageIcon("images/focus.png");
 		JLabel focus = new JLabel(fimg);
 		
-		// Key 리스너 달기
+		//Key listener add
 		MyKeyListener key = new MyKeyListener(c, focus, scorelabel, plusone, minus3, plus5);
 		key.setThread(catTh, dogTh, fishTh);
 		startbtn.addKeyListener(key);
@@ -105,8 +106,8 @@ public class NyangiGame extends JFrame {
 		focus.setSize(fimg.getIconWidth(),fimg.getIconWidth());
 		c.add(focus);
 		c.setFocusable(true);
-		c.requestFocus();  // 컨텐트팬이 키 입력을 받을 수 있도록 포커스 강제 지정
-				
+		c.requestFocus();  //content pane focus to receive input
+		
 		setSize(500,500);
 		setVisible(true);
 	}
